@@ -1,5 +1,7 @@
 streamlit
 
+langchain
+
 spacy
 pyperclip
 wordcloud

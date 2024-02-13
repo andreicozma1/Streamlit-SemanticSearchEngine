@@ -36,7 +36,7 @@ streamlit run app.py
 3. Type your query into the search bar and watch the engine do its magic.
 4. Use the sidebar to tweak your search preferences as needed.
 
-![image](https://github.com/andreicozma1/Streamlit-SemanticSearchEngine/assets/14914491/4f5814cd-0edc-4ac4-9b55-fafe31a6fe9f)
+![image](./screenshot.png)
 
 ### Contributing
 
