@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Optional
 
 import streamlit as st
 from spacy.lang.en import stop_words

@@ -470,6 +470,7 @@ def create_sidebar():
                 [
                     "summa",
                     "sumy",
+                    # "transformers",
                     # "transformers (not implemented)",
                     # "openai (not implemented)",
                 ],
@@ -510,6 +511,12 @@ def create_sidebar():
                 )
             case "transformers":
                 pass
+            #     summary_kwargs["model"] = st.sidebar.selectbox(
+            #         "Model",
+            #         ["t5-small", "t5-base", "t5-large"],
+            #         index=1,
+            #         help="The model used to generate the summary.",
+            #     )
             case "ChatGPT":
                 pass
             case _:
