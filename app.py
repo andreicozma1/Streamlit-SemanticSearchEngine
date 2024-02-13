@@ -631,14 +631,14 @@ def create_sidebar():
                     "Ratio",
                     0.0,
                     1.0,
-                    0.2,
+                    0.0,
                     help="The ratio of key-words/phrases to the entire text. Set to 0 to use the words instead.",
                 )
                 highlights_kwargs["words"] = st.sidebar.slider(
                     "Words",
                     0,
                     50,
-                    0,
+                    20,
                     help="The number of key-words/phrases. Set to 0 to use the ratio instead.",
                 )
                 # highlights_kwargs["split"] = st.sidebar.checkbox(
