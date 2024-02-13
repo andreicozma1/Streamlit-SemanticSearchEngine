@@ -5,10 +5,16 @@ This project brings a powerful search engine that goes beyond simple keyword mat
 ## Features
 
 - **Semantic Search**: Finds the most relevant information within documents by understanding context and semantics.
-- **Search Summary**: Offers comprehensive summaries of search results using various summarization techniques.
+  - Maximum Marginal Relevance (MMR) - A search result diversification technique that ensures the returned results are as different from each other as possible.
+  - Similarity Scoring - Uses cosine similarity to rank search results based on their relevance to the query.
+  - Thresholded Similarity - Allows users to set a minimum similarity score for search results, ensuring only the most relevant documents are returned.
+- **Search Summary**: Offers comprehensive summaries of search results using various summarization techniques
+  - Using `summa` and `sumy` libraries, the search engine can generate summaries of search results using various summarization techniques, such as LSA, Luhn, Edmundson, TextRank, LexRank, KL-Sum, etc.
+  - Large-Language Model summarization coming in a future release.
+- **Keyword & Phrase Highlighting**: Important keywords and phrases are highlighted in search results, enabling faster skimming and identification of crucial information.
+  - Methods: Yake, Rake, Multi-Rake, and TextRank.
 - **Word Cloud**: Visualize the most prominent terms from search results with an automatically generated word cloud.
 - **Find Similar**: Allows users to find results similar to the ones they are interested in with just one click.
-- **Automatic Highlighting**: Important keywords and phrases are highlighted in search results, enabling faster skimming and identification of crucial information.
 - **Customizability**: Offers complete control over the user experience, including the user interface, similarity scoring, summarization, and highlighting options, ensuring a tailored search experience.
 
 ## Getting Started
