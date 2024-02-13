@@ -29,7 +29,7 @@ class Highlighter(Enum):
 
 @st.cache_data
 def get_highlights(text: str, method: Highlighter, **kwargs):
-    keywords = []
+    highlights = []
     match method:
         case Highlighter.YAKE:
             import yake
@@ -51,7 +51,9 @@ def get_highlights(text: str, method: Highlighter, **kwargs):
             result = custom_kw_extractor.extract_keywords(text)
             print(result)
 
-            keywords, scores = zip(*result)
+            if result:
+                highlights, scores = zip(*result)
+
         case Highlighter.RAKE_NLTK:
             from rake_nltk import Rake
 
@@ -75,7 +77,9 @@ def get_highlights(text: str, method: Highlighter, **kwargs):
             result = r.get_ranked_phrases_with_scores()
             print(result)
 
-            scores, keywords = zip(*result)
+            if result:
+                scores, highlights = zip(*result)
+
         case Highlighter.MULTI_RAKE:
             from multi_rake import Rake
 
@@ -99,33 +103,41 @@ def get_highlights(text: str, method: Highlighter, **kwargs):
             result = r.apply(text)
             print(result)
 
-            keywords, scores = zip(*result)
+            if result:
+                highlights, scores = zip(*result)
+
         case Highlighter.TEXTRANK:
-            from summa import keywords
+            from summa import keywords as summa_keywords
 
             # ratio=0.2, words=None, language="english", split=False, scores=False, deaccent=False
             kwargs.setdefault("language", "english")
-            kwargs.setdefault("ratio", 0.2)
             kwargs.setdefault("split", False)
             kwargs.setdefault("min_length", 3)
+
+            if kwargs.get("ratio", None) == 0:
+                kwargs.pop("ratio")
+            if kwargs.get("words", None) == 0:
+                kwargs.pop("words")
 
             pprint(kwargs)
 
             min_length = kwargs.pop("min_length")
 
-            result = keywords.keywords(text, scores=True, **kwargs)
+            result = summa_keywords.keywords(text, scores=True, **kwargs)
             print(result)
 
             result = list(filter(lambda x: len(x[0]) >= min_length, result))
 
-            keywords, scores = zip(*result)
+            if result:
+                highlights, scores = zip(*result)
+
         case _:
             raise ValueError(f"Invalid method: {method}")
 
-    keywords = list(set(keywords))
-    print("keywords:", keywords)
+    highlights = list(set(highlights))
+    print("keywords:", highlights)
 
-    return keywords
+    return highlights
 
 
 def merge_spans(spans):
