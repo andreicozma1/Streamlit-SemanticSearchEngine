@@ -1,0 +1,13 @@
+streamlit
+
+spacy
+pyperclip
+wordcloud
+yake
+multi_rake
+rake_nltk
+summa
+sumy
+gensim
+tiktoken
+pylatexenc
