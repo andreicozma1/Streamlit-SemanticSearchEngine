@@ -27,20 +27,25 @@ Clone this repository and install the necessary dependencies to get the search e
 pip install -r requirements.txt
 ```
 
+Set up the necessary environment variables:
+
+An OpenAI API is used to extract vector embeddings for the documents. You can get your API key from the [OpenAI website](https://platform.openai.com/api-keys).
+Once you have your API key, set it as an environment variable:
+
+```bash
+export OPENAI_API_KEY="sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+```
+
 ### Running the Application
+
+Drop your Markdown files into the `./docs` directory relative to the project root.
+The search engine will automatically index the documents in this directory and make them available for search.
 
 To launch the search engine, simply run:
 
 ```
 streamlit run app.py
 ```
-
-### How to Use
-
-1. Drop your Markdown files into the ./docs directory.
-2. Fire up the application with the streamlit run command.
-3. Type your query into the search bar and watch the engine do its magic.
-4. Use the sidebar to tweak your search preferences as needed.
 
 ### Example (Lorem Ipsum)
 
