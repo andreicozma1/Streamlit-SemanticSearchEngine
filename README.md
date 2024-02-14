@@ -27,7 +27,7 @@ Clone this repository and install the necessary dependencies to get the search e
 pip install -r requirements.txt
 ```
 
-Set up the necessary environment variables:
+### Environment Setup
 
 An OpenAI API is used to extract vector embeddings for the documents. You can get your API key from the [OpenAI website](https://platform.openai.com/api-keys).
 Once you have your API key, set it as an environment variable:
