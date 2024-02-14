@@ -93,9 +93,10 @@ class SearchResult:
 
 
 def display_math(math_list: list[str], key: str):
-    # with st.container(border=True):
     with st.expander(f"Math ({len(math_list)})", expanded=False):
-        # st.subheader("Math Blocks")
+        if len(math_list) == 0:
+            st.write("No math blocks found.")
+
         # dropdowns to sort by various options and then another dropdown for ascending or descending
         _, col_sort, col_order, _ = st.columns([2, 2, 2, 2])
 
@@ -131,13 +132,13 @@ def display_math(math_list: list[str], key: str):
                 st.latex(math)
             with col3:
                 st_copy_to_clipboard_btn(math, key=f"math_{key}+{i}_copy")
-        else:
-            st.write("No math blocks found.")
 
 
 def display_code(code_list: list[tuple[str, str]], key: str):
-    # with st.container(border=True):
     with st.expander(f"Code ({len(code_list)})", expanded=False):
+        if len(code_list) == 0:
+            st.write("No code blocks found.")
+
         # dropdowns to sort by various options and then another dropdown for ascending or descending
         _, col_sort, col_order, _ = st.columns([2, 2, 2, 2])
         with col_sort:
@@ -177,8 +178,6 @@ def display_code(code_list: list[tuple[str, str]], key: str):
                 st.code(code, language=lang, line_numbers=True)
             with col3:
                 st_copy_to_clipboard_btn(code, key=f"code_{key}+{i}_copy")
-        else:
-            st.write("No code blocks found.")
 
 
 def display_search_results(
