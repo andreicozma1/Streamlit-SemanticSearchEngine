@@ -6,11 +6,15 @@ import streamlit as st
 from spacy.lang.en import stop_words
 from spacy.matcher import PhraseMatcher
 from spacy.tokens import Span
+from spacy.cli import download
 
 from src.utils import pprint
 
 
 def setup_spacy(name="en_core_web_md"):
+    if not spacy.util.is_package(name):
+        download(name)
+
     return spacy.load(name)
 
 
