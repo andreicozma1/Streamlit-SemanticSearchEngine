@@ -2,16 +2,15 @@ import hashlib
 import os
 import re
 from datetime import datetime
-
-import magic
+import mimetypes
 
 from . import utils
 
 
 class ContentMetadata:
-    def __init__(self, source: str, magic):
+    def __init__(self, source: str):
         self.source = source
-        self.magic = magic
+        self.mime, _ = mimetypes.guess_type(source)
 
         self.sha256 = self.get_sha256()
 
@@ -63,7 +62,9 @@ class ContentMetadata:
 
     @property
     def is_text(self):
-        return self.magic.startswith("text/")
+        if self.mime is None:
+            return False
+        return self.mime.startswith("text/")
 
     @property
     def content(self):
@@ -74,7 +75,7 @@ class ContentMetadata:
         return dict(
             source=self.source,
             sha256=self.sha256,
-            magic=self.magic,
+            magic=self.mime,
             size=self.size,
             mtime=self.mtime,
             ctime=self.ctime,
@@ -84,4 +85,4 @@ class ContentMetadata:
 
     @classmethod
     def from_path(cls, path: str):
-        return cls(source=path, magic=magic.from_file(path, mime=True))
+        return cls(source=path)
