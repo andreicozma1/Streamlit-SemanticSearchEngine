@@ -10,7 +10,8 @@ from . import utils
 class ContentMetadata:
     def __init__(self, source: str):
         self.source = source
-        self.mime, _ = mimetypes.guess_type(source)
+        mime, _ = mimetypes.guess_type(source, strict=False)
+        self.mime = mime if mime is not None else "unknown"
 
         self.sha256 = self.get_sha256()
 
@@ -62,8 +63,6 @@ class ContentMetadata:
 
     @property
     def is_text(self):
-        if self.mime is None:
-            return False
         return self.mime.startswith("text/")
 
     @property
@@ -75,7 +74,7 @@ class ContentMetadata:
         return dict(
             source=self.source,
             sha256=self.sha256,
-            magic=self.mime,
+            mime=self.mime,
             size=self.size,
             mtime=self.mtime,
             ctime=self.ctime,
