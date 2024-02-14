@@ -5,7 +5,6 @@ from langchain.storage import LocalFileStore
 from langchain.text_splitter import MarkdownTextSplitter
 from langchain_community.document_loaders import (
     DirectoryLoader,
-    UnstructuredMarkdownLoader,
 )
 from langchain_openai import OpenAIEmbeddings
 
@@ -46,9 +45,9 @@ def load_docs(docs_path):
         glob="**/*.md",
         show_progress=True,
         recursive=True,
-        use_multithreading=True,
-        max_concurrency=4,
-        loader_cls=UnstructuredMarkdownLoader,
+        # use_multithreading=True,
+        # max_concurrency=4,
+        # loader_cls=UnstructuredMarkdownLoader,
         # loader_kwargs=text_loader_kwargs,
     )
     # text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=0)
