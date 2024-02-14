@@ -17,10 +17,6 @@ class ContentMetadata:
 
         self.size = os.path.getsize(source)
 
-        # if it's a text file then also add more info
-        if self.is_text:
-            self.get_meta_text()
-
     def get_sha256(self):
         with open(self.source, "rb") as file:
             return hashlib.sha256(file.read()).hexdigest()
