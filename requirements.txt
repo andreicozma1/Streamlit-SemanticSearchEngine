@@ -14,3 +14,4 @@ sumy==0.11.0
 gensim==4.3.2
 tiktoken==0.6.0
 pylatexenc==2.10
+appdirs==1.4.4

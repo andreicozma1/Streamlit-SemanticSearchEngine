@@ -7,6 +7,7 @@ import pyperclip
 import streamlit as st
 from langchain_community.vectorstores import Chroma
 from wordcloud import WordCloud
+from appdirs import AppDirs
 
 from src import extractors, highlighter, resources, summarizer, utils
 
@@ -14,8 +15,15 @@ st.set_page_config(layout="wide")
 
 
 @st.cache_resource
-def setup_db(docs_path="./docs/", cache_path="./cache/"):
-    cached_embedder, local_store = resources.setup_embedder(cache_path)
+def setup_db(docs_path="./docs/"):
+    dirs = AppDirs("SemanticSearchEngine", "andreicozma1")
+    print("config_dir:", dirs.user_config_dir)
+    print("data_dir:", dirs.user_data_dir)
+    print("cache_dir:", dirs.user_cache_dir)
+    emb_cache_dir = os.path.join(dirs.user_cache_dir, "embeddings")
+    print("emb_cache_dir:", emb_cache_dir)
+
+    cached_embedder, local_store = resources.setup_embedder(emb_cache_dir)
     docs = resources.load_docs(docs_path)
 
     if not docs:
@@ -27,10 +35,10 @@ def setup_db(docs_path="./docs/", cache_path="./cache/"):
         embedding=cached_embedder,
     )
     print("Ready!")
-    return vector_db
+    return vector_db, dirs
 
 
-db = setup_db()
+db, dirs = setup_db()
 
 
 def run_search(query, search_type, **kwargs):
