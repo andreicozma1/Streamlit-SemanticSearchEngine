@@ -17,11 +17,16 @@ st.set_page_config(layout="wide")
 def setup_db(docs_path="./docs/", cache_path="./cache/"):
     cached_embedder, local_store = resources.setup_embedder(cache_path)
     docs = resources.load_docs(docs_path)
+
+    if not docs:
+        raise ValueError(f"No documents found at `{docs_path}`")
+
+    print("Setting up vector database...")
     vector_db = Chroma.from_documents(
         documents=docs,
         embedding=cached_embedder,
     )
-
+    print("Ready!")
     return vector_db
 
 
