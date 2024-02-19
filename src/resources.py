@@ -9,6 +9,7 @@ from langchain_community.document_loaders import (
 from langchain_openai import OpenAIEmbeddings
 
 from .FileMetadata import ContentMetadata
+from .utils import pprint
 
 
 def setup_embedder(cache_path):
@@ -32,26 +33,44 @@ def setup_embedder(cache_path):
     return cached_embedder, local_store
 
 
-def load_docs(docs_path):
+def load_docs(docs_path, loader_kwargs={}, splitter_kwargs={}):
+    # ---------------------
+    # Loader kwargs defaults
+    loader_kwargs.setdefault("autodetect_encoding", True)
+    loader_kwargs.setdefault("glob", "**/*.md")
+    loader_kwargs.setdefault("show_progress", True)
+    loader_kwargs.setdefault("recursive", True)
+    # loader_kwargs.setdefault("use_multithreading", True)
+    # loader_kwargs.setdefault("max_concurrency", 4)
+    # loader_kwargs.setdefault("loader_cls", UnstructuredMarkdownLoader)
+
     # loader_kwargs = dict(
     #     autodetect_encoding=True,
     # )
+    # loader_kwargs.setdefault("loader_kwargs", text_loader_kwargs)
+
+    print("Loader kwargs:")
+    pprint(loader_kwargs)
+
+    # ---------------------
+    # Splitter kwargs defaults
+    splitter_kwargs.setdefault("chunk_size", 2048)
+    splitter_kwargs.setdefault("chunk_overlap", 512)
+
+    print("Splitter kwargs:")
+    pprint(splitter_kwargs)
+
+    # ---------------------
 
     print("=" * 80)
     print(f"Loading documents: {docs_path}")
 
     loader = DirectoryLoader(
         docs_path,
-        glob="**/*.md",
-        show_progress=True,
-        recursive=True,
-        # use_multithreading=True,
-        # max_concurrency=4,
-        # loader_cls=UnstructuredMarkdownLoader,
-        # loader_kwargs=text_loader_kwargs,
+        **loader_kwargs,
     )
     # text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=0)
-    text_splitter = MarkdownTextSplitter(chunk_size=2048, chunk_overlap=512)
+    text_splitter = MarkdownTextSplitter(**splitter_kwargs)
 
     # ---------------------
 
